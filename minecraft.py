@@ -8,12 +8,6 @@ class Plants ():
     def __init__(self):
         pass
 
-axe = Weapons(100, "wood")
-apple = Plants()
-print(axe)
-print(axe.durability)
-print(axe.madeof)
-print(apple)
 
 class Dagger(Weapons):
     def __init__(self, durability, made_of, shape, color = "wooden", is_enchanted = False):
@@ -22,7 +16,24 @@ class Dagger(Weapons):
         self.color = color
         self.isenchanted = is_enchanted
     def cut_things(self, thing):
-        pass
+        if isinstance(thing, Plants):
+            if self.durability > 0:
+                if thing.texture == "ARBORESCENTE":
+                    thing.gives(self.isenchanted)
+                    self.durability -= self.durability/4
+                else:
+                    return("Your weapon Can't cut this plant.")
+            else:
+                return("The durability of your weapon is less than 0")
+         
+        else:
+            return("You can't break a non-plant thing with your weapon")
+        
+                
+
+
+            
+
 
 class Axe(Weapons):
     def __init__(self, durability, made_of,shape, color = "silver", is_enchanted = False):
@@ -31,7 +42,18 @@ class Axe(Weapons):
         self.color = color
         self.isenchanted = is_enchanted
     def cut_things(self, thing):
-        pass
+        if isinstance(thing, Plants):
+            if self.durability > 0:
+                if thing.texture == "ARBORESCENTE" or thing.texture == "TREE":
+                    thing.gives(self.isenchanted)
+                    self.durability -= self.durability/8
+                else:
+                    return("Your weapon Can't cut this plant.")
+            else:
+                return("The durability of your weapon is less than 0")
+         
+        else:
+            return("You can't break a non-plant thing with your weapon")
 
 class Sword(Weapons):
      def __init__(self, durability, made_of,shape, color = "silver", is_enchanted = False):
@@ -40,7 +62,18 @@ class Sword(Weapons):
         self.color = color
         self.isenchanted = is_enchanted
      def cut_things(self, thing):
-        pass
+        if isinstance(thing, Plants):
+            if self.durability > 0:
+                if thing.texture == "ARBORESCENTE" or thing.texture == "TREE" or thing.texture == "PERENNIAL":
+                    thing.gives(self.isenchanted)
+                    self.durability -= self.durability/12
+                else:
+                    return("Your weapon Can't cut this plant.")
+            else:
+                return("The durability of your weapon is less than 0")
+         
+        else:
+            return("You can't break a non-plant thing with your weapon")
 
 class Pinetree(Plants):
     def __init__(self, color, length, texture = "TREE" ):
@@ -48,8 +81,14 @@ class Pinetree(Plants):
         self.color = color
         self.length = length
         self.texture = texture
-    def gives(self,):
-        pass
+    def gives(self, enchanted):
+        if enchanted:
+            return("You got 2 fruits.")
+        else:
+            return("You got 1 fruits.")
+        
+
+        
 
 class Starwberry(Plants):
     def __init__(self, color, length, texture = "ARBORESCENTE" ):
@@ -57,8 +96,11 @@ class Starwberry(Plants):
         self.color = color
         self.length = length
         self.texture = texture
-    def gives(self,):
-        pass
+    def gives(self,enchanted):
+        if enchanted:
+            return("You got 2 fruits.")
+        else:
+            return("You got 1 fruits.")
         
 class Sugar_can(Plants):
     def __init__(self, color, length, texture = "PERENNIAL" ):
@@ -66,5 +108,13 @@ class Sugar_can(Plants):
         self.color = color
         self.length = length
         self.texture = texture
-    def gives(self,):
-        pass
+    def gives(self,enchanted):
+        if enchanted:
+            return("You got 2 fruits.")
+        else:
+            return("You got 1 fruits.")
+
+axe = Axe(100, "stone", "round")
+straw = Starwberry("red", "big")
+for i in range(11):
+    print(axe.cut_things(straw))
