@@ -1,0 +1,2 @@
+
+straw = Starwberry("red", "big")

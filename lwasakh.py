@@ -1,0 +1,2 @@
+vrb = ""
+print(isinstance(vrb,))

@@ -19,8 +19,9 @@ class Dagger(Weapons):
         if isinstance(thing, Plants):
             if self.durability > 0:
                 if thing.texture == "ARBORESCENTE":
-                    thing.gives(self.isenchanted)
-                    self.durability -= self.durability/4
+                    print(thing.gives(self.isenchanted))
+                    self.durability -= 20
+                    return "you have cut the plant and the durability of your weapon has decreased."
                 else:
                     return("Your weapon Can't cut this plant.")
             else:
@@ -30,10 +31,6 @@ class Dagger(Weapons):
             return("You can't break a non-plant thing with your weapon")
         
                 
-
-
-            
-
 
 class Axe(Weapons):
     def __init__(self, durability, made_of,shape, color = "silver", is_enchanted = False):
@@ -45,8 +42,10 @@ class Axe(Weapons):
         if isinstance(thing, Plants):
             if self.durability > 0:
                 if thing.texture == "ARBORESCENTE" or thing.texture == "TREE":
-                    thing.gives(self.isenchanted)
-                    self.durability -= self.durability/8
+                    print(thing.gives(self.isenchanted))
+                    self.durability -= 5
+
+                    return "you have cut the plant and the durability of your weapon has decreased."
                 else:
                     return("Your weapon Can't cut this plant.")
             else:
@@ -65,8 +64,9 @@ class Sword(Weapons):
         if isinstance(thing, Plants):
             if self.durability > 0:
                 if thing.texture == "ARBORESCENTE" or thing.texture == "TREE" or thing.texture == "PERENNIAL":
-                    thing.gives(self.isenchanted)
-                    self.durability -= self.durability/12
+                    print(thing.gives(self.isenchanted))
+                    self.durability -= 10
+                    return "you have cut the plant and the durability of your weapon has decreased."
                 else:
                     return("Your weapon Can't cut this plant.")
             else:
@@ -90,7 +90,7 @@ class Pinetree(Plants):
 
         
 
-class Starwberry(Plants):
+class Strawberry(Plants):
     def __init__(self, color, length, texture = "ARBORESCENTE" ):
         super().__init__()
         self.color = color
@@ -112,9 +112,17 @@ class Sugar_can(Plants):
         if enchanted:
             return("You got 2 fruits.")
         else:
-            return("You got 1 fruits.")
+            return("You got 1 fruit.")
 
-axe = Axe(100, "stone", "round")
-straw = Starwberry("red", "big")
+axe = Axe(50, "stone", "round", is_enchanted= True)
+straw = Strawberry("red", "big")
+arsalan = Dagger(60, "Iron", "Aigu", "silver", True)
+chajara = Pinetree("brown", 3)
 for i in range(11):
-    print(axe.cut_things(straw))
+    if arsalan.durability == 0:
+        break
+    
+    print(arsalan.cut_things(straw))
+    print(arsalan.durability)
+
+#print(straw.gives(True))
